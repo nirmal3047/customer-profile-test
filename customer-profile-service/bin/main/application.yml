@@ -1,6 +1,6 @@
 spring:
   application:
-    name: ms-bootstrap
+    name: customer-profile-service
 
 server:
   port: 9288
