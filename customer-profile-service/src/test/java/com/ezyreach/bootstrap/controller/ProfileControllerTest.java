@@ -1,18 +1,24 @@
 package com.ezyreach.bootstrap.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import com.ezyreach.bootstrap.entity.UserInput;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(ProfileController.class)
@@ -27,17 +33,30 @@ public class ProfileControllerTest {
     }
 
 	@Test
-	public void controllerIsNotNull() {
+	public void mockMvcIsNotNull() {
 		assertThat(mockMvc).isNotNull();
 	}
 	
 	@Test
 	public void shouldReturnHttpStatusOk() throws Exception {
-		this.mockMvc.perform(get("/v1/customer/greeting")).andExpect(status().isOk());
+		mockMvc.perform(get("/v1/customer/greeting")).andExpect(status().isOk());
 	}
 	
-	/*@Test
+	@Test
+	public void shouldReturnWelcome() throws Exception {
+		mockMvc.perform(get("/v1/customer/greeting"))
+					.andExpect(content().string(containsString("welcome")));
+	}
+	
+	@Test
 	public void shouldReturnHttpStatusCreated() throws Exception {
-		this.mockMvc.perform(post("/v1/customer/profile")).andExpect(status().isCreated());
-	}*/
+		UserInput userInput = new UserInput("gstin", "pan", "udyogAadhaar", 123);
+		ObjectMapper mapper = new ObjectMapper();
+	    String jsonString = mapper.writeValueAsString(userInput);
+		
+		mockMvc.perform(post("/v1/customer/profile").
+				contentType(MediaType.APPLICATION_JSON)
+				.content(jsonString))
+				.andExpect(status().isCreated());
+	}
 }
