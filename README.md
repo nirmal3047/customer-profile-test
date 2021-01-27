@@ -35,14 +35,18 @@ This is a multi build Gradle project. The specifications are as follows:
 * Spring Boot version: 2.3.2.RELEASE
 
 Spring dependencies:
-* spring-boot-starter-web: For building web application
-* spring-boot-starter-validation: For Bean Validation
-* spring-cloud-starter-sleuth: For tracibility
-* spring-boot-starter-test: For testing
-* spring-data-jpa: For persisting data
+|Dependency                    |Purpose                     |
+|:-----------------------------|:---------------------------|
+|spring-boot-starter-web       |For building web application|
+|spring-boot-starter-validation|For Bean Validation         |
+|spring-cloud-starter-sleuth   |For tracibility             |
+|spring-boot-starter-test      |For testing                 |
+|spring-data-jpa               |For persisting data         |
 
 Other dependencies:
-* JUnit5: For testing
+|Dependency                    |Purpose                     |
+|:-----------------------------|:---------------------------|
+|JUnit 5                       |For unit testing            |
 
 
 ### Running project in local
@@ -60,7 +64,7 @@ Please visit [customer/profile API specs](https://github.com/EzReach/customer-pr
 
 #### Request payload
 * Request body: application/Json
-Payload example:
+* Payload example:
 
 ```
 {
