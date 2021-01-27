@@ -35,7 +35,14 @@ This is a multi build Gradle project. The specifications are as follows:
 * Spring Boot version: 2.3.2.RELEASE
 
 Spring dependencies:
-* spring-
+* spring-boot-starter-web: For building web application
+* spring-boot-starter-validation: For Bean Validation
+* spring-cloud-starter-sleuth: For tracibility
+* spring-boot-starter-test: For testing
+* spring-data-jpa: For persisting data
+
+Other dependencies:
+* JUnit5: For testing
 
 
 ### Running project in local
@@ -51,7 +58,10 @@ Go to **http://localhost:9288/v1/customer/greeting** and you should see **welcom
 ### API specs
 Please visit [customer/profile API specs](https://github.com/EzReach/customer-profile-service/blob/main/customer-profile-api.yaml) for detailed API specification
 
-#### Request payload example
+#### Request payload
+* Request body: application/Json
+Payload example:
+
 ```
 {
   "gstin": "05ABNTY3290P8ZA",
@@ -62,7 +72,10 @@ Please visit [customer/profile API specs](https://github.com/EzReach/customer-pr
 ```
 
 
-#### Responses
+#### Response payload
+* Response body: application/json
+
+Responses
 * 201 Created
 * 400 Bad Request
 * 401 Unauthorized
