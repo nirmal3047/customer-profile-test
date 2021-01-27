@@ -6,7 +6,7 @@ This API is called after the user has signed up on the EzyReach platform and suc
 
 ### Entities
 
-1. UserInput
+##### 1. UserInput
 |Fields      |Type  |Mandatory?|Description?|
 |------------|:----:|:--------:|:-----------|
 |gstin       |String|Yes       |15 characters alphanumeric|
@@ -14,7 +14,7 @@ This API is called after the user has signed up on the EzyReach platform and suc
 |udyogAadhaar|String|Yes       |12 characters numeric|
 |turnover    |float |Yes       |Must be positive|
 
-2. Customer
+##### 2. Customer
 |Fields      |Type  |Mandatory?|Description?|
 |------------|:----:|:--------:|:-----------|
 |customerId  |String|Yes       |UUID|
