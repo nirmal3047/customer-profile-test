@@ -1,0 +1,124 @@
+swagger: '2.0'
+info:
+  description: This API will be called after the user has successfully signed up and verified the email. This API creates the user profile with all necessary details about the user such name, contact details etc.
+  version: 1.0.0
+  title: Customer Profiling
+host: 'domain-name'
+basePath: /v1
+tags:
+  - name: profile
+    description: customer's Profile
+schemes:
+- http
+- https
+paths:
+  /customer/profile:
+    post:
+      tags:
+        - profile
+      summary: creates customer profile using details fetched from gstin
+      operationId: createProfile
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: header
+          name: authorization
+          type: string
+          required: true
+        - in: body
+          name: user input
+          description: details entered by the customer
+          required: true
+          schema:
+            $ref: '#/definitions/UserInput'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+      security:
+      - profile_auth:
+        - "write:profile"
+      deprecated: false
+securityDefinitions:
+  profile_auth:
+    type: "oauth2"
+    authorizationUrl: "http://dummy"
+    flow: "implicit"
+    scopes:
+      write:profile: "add new customer in the database"
+definitions:
+  ErrorMessage:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      errorCode:
+        type: string
+        example: '404.001.001'
+      message:
+        type: string
+        example: 'GST Not Found'
+      params:
+        type: object
+        properties:
+          gstin:
+            type: string
+    title: ErrorMessage
+  UserInput:
+    type: object
+    properties:
+      gstin:
+        type: string
+        example: '05ABNTY3290P8ZA'
+      pan:
+        type: string
+        example: 'CPAA1234A'
+      turnover:
+        type: number
+      udyogAadhaar:
+        type: string
+    title: UserInput
+  Customer:
+    type: object
+    properties:
+      customerId:
+        type: string
+        format: uuid
+      name:
+        type: string
+        example: 'ABC pvt ltd'
+      gstin:
+        type: string
+        example: '05ABNTY3290P8ZA'
+      pan:
+        type: string
+        example: 'CPAA1234A'
+      turnover:
+        type: number
+      udyogAadhaar:
+        type: string
+      address:
+        type: object
+      email:
+        type: string
+      mobile:
+        type: string
+    title: Customer

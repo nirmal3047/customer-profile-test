@@ -28,6 +28,19 @@ This API is called after the user has signed up on the EzyReach platform and suc
 ![alt text](https://github.com/EzReach/customer-profile-service/blob/main/Diagrams/ER-customer-profile.PNG "Entities for customer/profile")
 
 
+### Action sequence
+* After the user logs in, the API Gateway provides the user(React) an access token
+* This access token is sent along with the request for **POST /customer/profile** API call
+* The API call is intercepted by the AWS API Gateway, the access token is verified with AWS Cognito
+* If the token is valid, the request is sent to AWS Load Balancer
+* The ALB then sends the request to Spring Boot App running in EKS
+* Spring Boot (customer-profile-service) calls GST/Mock GST server and fetches the user's data using PAN number
+* The GST/Mock GST server sends the data or Error message (if any) back to the customer-profile-service
+* Then this data is persisted in AWS RDS PostgreSQL
+* Http status **201 CREATED** or Error message (if any) is returned to the API Gateway and from there to the end user (React app)
+![alt text](https://github.com/EzReach/customer-profile-service/blob/main/Diagrams/Sequence-Diagram.PNG "Sequence Diagram")
+
+
 ### Project Setup
 This is a multi build Gradle project. The specifications are as follows:
 * Gradle version: 6.7

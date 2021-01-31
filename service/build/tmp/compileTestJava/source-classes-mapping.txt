@@ -1,0 +1,4 @@
+com/ezyreach/profiling/BootstrapTest.java
+ com.ezyreach.profiling.BootstrapTest
+com/ezyreach/profiling/controller/ProfileControllerTest.java
+ com.ezyreach.profiling.controller.ProfileControllerTest
