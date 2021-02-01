@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 import com.ezyreach.profiling.service.ProfileService;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.ezyreach.profiling.entity.UserInput;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.web.client.RestTemplate;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -29,9 +29,6 @@ public class ProfileControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
-
-	@MockBean
-	private RestTemplate restTemplate;
 
 	@MockBean
 	private ProfileService mockService;
@@ -53,6 +50,7 @@ public class ProfileControllerTest {
 	}
 	
 	@Test
+	@DisplayName("Test createProfile")
 	public void shouldReturnHttpStatusCreated() throws Exception {
 		UserInput userInput = new UserInput("gstin", "pan", "udyogAadhaar", 123);
 		ObjectMapper mapper = new ObjectMapper();

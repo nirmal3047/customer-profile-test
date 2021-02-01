@@ -32,7 +32,7 @@ public class UserInput {
 		this.turnover = turnover;
 	}
 	
-	public String getGsting() {
+	public String getGstin() {
 		return gstin;
 	}
 	public void setGsting(String gstin) {

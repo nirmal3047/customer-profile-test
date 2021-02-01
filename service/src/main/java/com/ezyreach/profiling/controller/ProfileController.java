@@ -23,12 +23,10 @@ import org.springframework.web.client.RestTemplate;
 public class ProfileController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProfileController.class);
-    private RestTemplate restTemplate;
     private ProfileService profileService;
 
 	@Autowired
-    public ProfileController(RestTemplate restTemplate, ProfileService profileService) {
-        this.restTemplate = restTemplate;
+    public ProfileController(ProfileService profileService) {
         this.profileService = profileService;
 	}
 	
@@ -40,6 +38,7 @@ public class ProfileController {
 	@PostMapping("/profile")
     public ResponseEntity<Void> createProfile(
     		@Valid @RequestBody UserInput userInput, BindingResult bindingResult){
+	    profileService.createCustomerProfile(userInput);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 }

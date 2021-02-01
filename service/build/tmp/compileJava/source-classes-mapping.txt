@@ -1,12 +1,12 @@
 com/ezyreach/profiling/repository/CustomerDao.java
  com.ezyreach.profiling.repository.CustomerDao
-com/ezyreach/profiling/entity/Customer.java
- com.ezyreach.profiling.entity.Customer
+com/ezyreach/profiling/entity/UserInput.java
+ com.ezyreach.profiling.entity.UserInput
 com/ezyreach/profiling/BootstrapApp.java
  com.ezyreach.profiling.BootstrapApp
+com/ezyreach/profiling/entity/Customer.java
+ com.ezyreach.profiling.entity.Customer
 com/ezyreach/profiling/service/ProfileService.java
  com.ezyreach.profiling.service.ProfileService
 com/ezyreach/profiling/controller/ProfileController.java
  com.ezyreach.profiling.controller.ProfileController
-com/ezyreach/profiling/entity/UserInput.java
- com.ezyreach.profiling.entity.UserInput

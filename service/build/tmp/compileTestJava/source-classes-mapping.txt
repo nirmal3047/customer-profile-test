@@ -2,3 +2,7 @@ com/ezyreach/profiling/BootstrapTest.java
  com.ezyreach.profiling.BootstrapTest
 com/ezyreach/profiling/controller/ProfileControllerTest.java
  com.ezyreach.profiling.controller.ProfileControllerTest
+com/ezyreach/profiling/service/ProfileServiceTest.java
+ com.ezyreach.profiling.service.ProfileServiceTest
+com/ezyreach/profiling/CustomerRepositoryTestConfiguration.java
+ com.ezyreach.profiling.CustomerRepositoryTestConfiguration
