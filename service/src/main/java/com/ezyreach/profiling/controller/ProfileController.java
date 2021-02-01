@@ -38,7 +38,7 @@ public class ProfileController {
 	@PostMapping("/profile")
     public ResponseEntity<Void> createProfile(
     		@Valid @RequestBody UserInput userInput, BindingResult bindingResult){
-	    profileService.createCustomerProfile(userInput);
+	    //profileService.createCustomerProfile(userInput);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 }
