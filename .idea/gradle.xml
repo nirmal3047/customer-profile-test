@@ -10,7 +10,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/customer-profile-service" />
             <option value="$PROJECT_DIR$/service" />
             <option value="$PROJECT_DIR$/service-component-test" />
           </set>

@@ -50,7 +50,7 @@ public class ProfileControllerTest {
 	}
 	
 	@Test
-	@DisplayName("Test createProfile")
+	//@DisplayName("Test createProfile")
 	public void shouldReturnHttpStatusCreated() throws Exception {
 		UserInput userInput = new UserInput("gstin", "pan", "udyogAadhaar", 123);
 		ObjectMapper mapper = new ObjectMapper();
