@@ -5,26 +5,113 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3560537f-b4bc-4001-8fcd-5bc39ffc1ff5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/service-component-test/.classpath" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-component-test/.project" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-component-test/.settings/org.eclipse.buildship.core.prefs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/main/com/ezreach/customer/profile/CustomerProfileApp.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/main/com/ezreach/customer/profile/controller/CustomerProfileController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/main/com/ezreach/customer/profile/controller/CustomerProfileControllerInterface.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/main/com/ezreach/customer/profile/entity/Customer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/main/com/ezreach/customer/profile/entity/UserInput.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/main/com/ezreach/customer/profile/exception/CustomerNotFoundException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/main/com/ezreach/customer/profile/exception/CustomerProfileExceptionHandler.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/main/com/ezreach/customer/profile/exception/ErrorMessage.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/main/com/ezreach/customer/profile/exception/GstNotFoundException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/main/com/ezreach/customer/profile/exception/GstServerDownException.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/main/com/ezreach/customer/profile/exception/Params.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/main/com/ezreach/customer/profile/repository/CustomerDao.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/main/com/ezreach/customer/profile/service/CustomerProfileService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/main/db/migration/V1__create_schema.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/main/db/migration/V2__update_schema.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/main/json/Taxpayer.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/main/testProperties.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/test/Taxpayer.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/test/com/ezreach/customer/profile/CustomerProfileAppTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/test/com/ezreach/customer/profile/controller/CustomerProfileControllerTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/test/com/ezreach/customer/profile/repository/CustomerRepoTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/test/com/ezreach/customer/profile/service/CustomerProfileServiceComponentTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/bin/test/com/ezreach/customer/profile/service/CustomerProfileServiceTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/src/main/java/com/ezreach/customer/profile/controller/CustomerProfileController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/src/main/java/com/ezreach/customer/profile/controller/CustomerProfileControllerInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/src/main/java/com/ezreach/customer/profile/exception/CustomerNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/src/main/java/com/ezreach/customer/profile/exception/CustomerProfileExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/src/main/java/com/ezreach/customer/profile/exception/ErrorMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/src/main/java/com/ezreach/customer/profile/exception/GstNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/src/main/java/com/ezreach/customer/profile/exception/GstServerDownException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/src/main/java/com/ezreach/customer/profile/exception/Params.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/src/main/resources/json/Taxpayer.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/src/main/resources/testProperties.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/src/test/java/com/ezreach/customer/profile/repository/CustomerRepoTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/src/test/java/com/ezreach/customer/profile/service/CustomerProfileServiceComponentTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service/src/test/resources/Taxpayer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.6.1/executionHistory/executionHistory.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.6.1/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.6.1/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.6.1/gc.properties" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.7/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" afterPath="$PROJECT_DIR$/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customer-profile-api.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/customer-profile-api.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service-component-test/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/service-component-test/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/build/classes/java/test/com/ezyreach/profiling/controller/ProfileControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/service/build/classes/java/test/com/ezyreach/profiling/controller/ProfileControllerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/build/reports/tests/test/classes/com.ezyreach.profiling.controller.ProfileControllerTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/service/build/reports/tests/test/classes/com.ezyreach.profiling.controller.ProfileControllerTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/service/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/.project" beforeDir="false" afterPath="$PROJECT_DIR$/service/.project" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/bin/main/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/service/bin/main/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/bin/main/com/ezyreach/bootstrap/BootstrapApp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/bin/main/com/ezyreach/bootstrap/controller/ProfileController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/bin/main/com/ezyreach/bootstrap/entity/UserInput.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/bin/test/com/ezyreach/bootstrap/BootstrapTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/bin/test/com/ezyreach/bootstrap/controller/ProfileControllerTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/service/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/build/classes/java/main/com/ezyreach/profiling/BootstrapApp.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/build/classes/java/main/com/ezyreach/profiling/controller/ProfileController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/build/classes/java/main/com/ezyreach/profiling/entity/Customer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/build/classes/java/main/com/ezyreach/profiling/entity/UserInput.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/build/classes/java/main/com/ezyreach/profiling/repository/CustomerDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/build/classes/java/main/com/ezyreach/profiling/service/ProfileService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/build/classes/java/test/com/ezyreach/profiling/BootstrapTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/build/classes/java/test/com/ezyreach/profiling/CustomerRepositoryTestConfiguration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/build/classes/java/test/com/ezyreach/profiling/controller/ProfileControllerTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/build/classes/java/test/com/ezyreach/profiling/service/ProfileServiceTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/build/reports/tests/test/classes/com.ezyreach.profiling.controller.ProfileControllerTest.html" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/service/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/service/build/reports/tests/test/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/build/reports/tests/test/packages/com.ezyreach.profiling.controller.html" beforeDir="false" afterPath="$PROJECT_DIR$/service/build/reports/tests/test/packages/com.ezyreach.profiling.controller.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/build/test-results/test/TEST-com.ezyreach.profiling.controller.ProfileControllerTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/service/build/test-results/test/TEST-com.ezyreach.profiling.controller.ProfileControllerTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/build/reports/tests/test/packages/com.ezyreach.profiling.controller.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/build/resources/main/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/service/build/resources/main/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/build/resources/main/db/migration/v1__createTable.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/build/test-results/test/TEST-com.ezyreach.profiling.controller.ProfileControllerTest.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/service/build/test-results/test/binary/output.bin" beforeDir="false" afterPath="$PROJECT_DIR$/service/build/test-results/test/binary/output.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/build/test-results/test/binary/output.bin.idx" beforeDir="false" afterPath="$PROJECT_DIR$/service/build/test-results/test/binary/output.bin.idx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/service/build/test-results/test/binary/results.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/build/tmp/bootJar/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/service/build/tmp/bootJar/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/service/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/build/tmp/compileTestJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/service/build/tmp/compileTestJava/source-classes-mapping.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/src/test/java/com/ezyreach/profiling/controller/ProfileControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/test/java/com/ezyreach/profiling/controller/ProfileControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/ezyreach/profiling/BootstrapApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/main/java/com/ezreach/customer/profile/CustomerProfileApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/ezyreach/profiling/controller/ProfileController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/ezyreach/profiling/entity/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/main/java/com/ezreach/customer/profile/entity/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/ezyreach/profiling/entity/UserInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/main/java/com/ezreach/customer/profile/entity/UserInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/ezyreach/profiling/repository/CustomerDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/main/java/com/ezreach/customer/profile/repository/CustomerDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/java/com/ezyreach/profiling/service/ProfileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/main/java/com/ezreach/customer/profile/service/CustomerProfileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/resources/db/migration/V1__create_schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/main/resources/db/migration/V1__create_schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/main/resources/db/migration/V2__update_schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/main/resources/db/migration/V2__update_schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/test/java/com/ezyreach/profiling/BootstrapTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/test/java/com/ezreach/customer/profile/CustomerProfileAppTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/test/java/com/ezyreach/profiling/CustomerRepositoryTestConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/test/java/com/ezyreach/profiling/controller/ProfileControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/test/java/com/ezreach/customer/profile/controller/CustomerProfileControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/src/test/java/com/ezyreach/profiling/service/ProfileServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/service/src/test/java/com/ezreach/customer/profile/service/CustomerProfileServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,15 +129,25 @@
         <task path="$PROJECT_DIR$">
           <activation />
         </task>
-        <projects_view />
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ms-bootstrap" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
       </state>
     </system>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="JUnit5 Test Class" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -67,10 +164,16 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
+    <property name="last_opened_file_path" value="$MAVEN_REPOSITORY$/com/github/tomakehurst/wiremock/2.27.2/wiremock-2.27.2.jar" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
@@ -83,13 +186,13 @@
       <recent name="com.ezyreach.profiling.service" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ProfileControllerTest.shouldReturnHttpStatusCreated">
-    <configuration name="BootstrapApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.ezyreach.profiling.BootstrapApp" />
+  <component name="RunManager" selected="Gradle.customer-profile-test">
+    <configuration name="CustomerProfileApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ezreach.customer.profile.CustomerProfileApp" />
       <module name="ms-bootstrap.service.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ezyreach.profiling.*" />
+          <option name="PATTERN" value="com.ezreach.customer.profile.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -102,7 +205,7 @@
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.ezyreach.profiling.controller.ProfileControllerTest&quot;" />
+        <option name="scriptParameters" value="--tests &quot;com.ezreach.customer.profile.controller.ProfileControllerTest&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -123,7 +226,7 @@
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.ezyreach.profiling.controller.ProfileControllerTest.shouldReturnHttpStatusCreated&quot;" />
+        <option name="scriptParameters" value="--tests &quot;com.ezreach.customer.profile.controller.ProfileControllerTest.shouldReturnHttpStatusCreated&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -139,55 +242,53 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="ProfileServiceTest.shouldReturnString" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="customer-profile-test [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.ezyreach.profiling.service.ProfileServiceTest.shouldReturnString&quot;" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":service:test" />
+            <option value="dependencies" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="ProfileServiceTest.testSave" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="customer-profile-test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.ezyreach.profiling.service.ProfileServiceTest.testSave&quot;" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
-          <list>
-            <option value=":service:test" />
-          </list>
+          <list />
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.ProfileControllerTest.shouldReturnHttpStatusCreated" />
+        <item itemvalue="Gradle.customer-profile-test" />
+        <item itemvalue="Gradle.customer-profile-test [dependencies]" />
+        <item itemvalue="Application.CustomerProfileApp" />
         <item itemvalue="Gradle.ProfileControllerTest" />
-        <item itemvalue="Application.BootstrapApp" />
-        <item itemvalue="Gradle.ProfileServiceTest.testSave" />
-        <item itemvalue="Gradle.ProfileServiceTest.shouldReturnString" />
+        <item itemvalue="Gradle.ProfileControllerTest.shouldReturnHttpStatusCreated" />
       </list>
     </recent_temporary>
   </component>
@@ -213,5 +314,8 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

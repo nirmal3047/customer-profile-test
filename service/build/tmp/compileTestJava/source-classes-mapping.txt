@@ -1,8 +1,10 @@
-com/ezyreach/profiling/BootstrapTest.java
- com.ezyreach.profiling.BootstrapTest
-com/ezyreach/profiling/CustomerRepositoryTestConfiguration.java
- com.ezyreach.profiling.CustomerRepositoryTestConfiguration
-com/ezyreach/profiling/service/ProfileServiceTest.java
- com.ezyreach.profiling.service.ProfileServiceTest
-com/ezyreach/profiling/controller/ProfileControllerTest.java
- com.ezyreach.profiling.controller.ProfileControllerTest
+com/ezreach/customer/profile/controller/CustomerProfileControllerTest.java
+ com.ezreach.customer.profile.controller.CustomerProfileControllerTest
+com/ezreach/customer/profile/service/CustomerProfileServiceComponentTest.java
+ com.ezreach.customer.profile.service.CustomerProfileServiceComponentTest
+com/ezreach/customer/profile/repository/CustomerRepoTest.java
+ com.ezreach.customer.profile.repository.CustomerRepoTest
+com/ezreach/customer/profile/service/CustomerProfileServiceTest.java
+ com.ezreach.customer.profile.service.CustomerProfileServiceTest
+com/ezreach/customer/profile/CustomerProfileAppTest.java
+ com.ezreach.customer.profile.CustomerProfileAppTest

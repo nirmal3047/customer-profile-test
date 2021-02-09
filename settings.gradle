@@ -1,4 +1,4 @@
-rootProject.name = 'ms-bootstrap'
+rootProject.name = 'customer-profile'
 include 'service'
 include 'service-component-test'
 

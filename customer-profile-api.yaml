@@ -56,6 +56,124 @@ paths:
       - profile_auth:
         - "write:profile"
       deprecated: false
+  /customer/profile/{customerId}:
+    put:
+      tags:
+        - profile
+      summary: updates the already existing customer profile
+      operationId: updateProfile
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+      - name: customerId
+        in: path
+        description: cc
+        required: true
+        type: string
+        format: uuid
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+      security:
+      - profile_auth:
+        - "write:profile"
+      deprecated: false
+    get:
+      tags:
+        - profile
+      summary: cc
+      operationId: fetchProfile
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+      - name: customerId
+        in: path
+        description: cc
+        required: true
+        type: string
+        format: uuid
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+      security:
+      - profile_auth:
+        - "write:profile"
+      deprecated: false
+    delete:
+      tags:
+        - profile
+      summary: deletes customer's profile with give customer id
+      operationId: deleteProfile
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+      - name: customerId
+        in: path
+        description: cc
+        required: true
+        type: string
+        format: uuid
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        '401':
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+      security:
+      - profile_auth:
+        - "write:profile"
+      deprecated: false
 securityDefinitions:
   profile_auth:
     type: "oauth2"

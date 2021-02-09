@@ -9,19 +9,23 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
   flyway:
-    baseline-on-migration: true
+    enabled: true
+    baselineOnMigrate: true
     user: postgres
     password: aaa
-    schemas: lsp
+    schemas: onboard
+    locations: classpath:db/migration
 
 server:
-  port: 9288
+  port: 9290
 
 logging:
   level:
     root: INFO
-    com.ezyreach: INFO
+    com.ezreach: INFO
 
 management:
   endpoints:
