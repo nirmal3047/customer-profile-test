@@ -1,14 +1,13 @@
 package com.ezreach.customer.profile.controller;
 
-import javax.validation.Valid;
-
+import com.ezreach.customer.profile.configuration.TokenVerifier;
 import com.ezreach.customer.profile.entity.Customer;
-import com.ezreach.customer.profile.exception.GstNotFoundException;
-import com.ezreach.customer.profile.exception.GstServerDownException;
+import com.ezreach.customer.profile.entity.Header;
+import com.ezreach.customer.profile.entity.TokenInfo;
+import com.ezreach.customer.profile.exception.BadRequestException;
 import com.ezreach.customer.profile.service.CustomerProfileService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,32 +21,42 @@ import java.util.UUID;
 @RestController
 public class CustomerProfileController implements CustomerProfileControllerInterface {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CustomerProfileController.class);
     private CustomerProfileService customerProfileService;
+    private TokenVerifier tokenVerifier;
 
 	@Autowired
-    public CustomerProfileController(CustomerProfileService customerProfileService) {
+    public CustomerProfileController(CustomerProfileService customerProfileService, TokenVerifier tokenVerifier) {
         this.customerProfileService = customerProfileService;
+        this.tokenVerifier = tokenVerifier;
 	}
 
     @Override
-	public ResponseEntity<String> greeting() {
-        return new ResponseEntity<String>("welcome", HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<Void> createProfile(@RequestHeader("authorization") Object header,
-    		@Valid @RequestBody UserInput userInput, BindingResult bindingResult)
-    				throws JsonProcessingException, GstServerDownException {
-	    customerProfileService.createCustomerProfile(userInput);
+    public ResponseEntity<Void> createProfile(String header, UserInput userInput, BindingResult bindingResult)
+    				throws Exception {
+    	ObjectMapper mapper = new ObjectMapper();
+    	Header headerObj = mapper.readValue(header, Header.class);
+    	
+    	String idToken = headerObj.getIdToken();
+    	TokenInfo tokenInfo = tokenVerifier.verifyToken(idToken);
+    	
+    	if (bindingResult.hasErrors()) {
+            throw new BadRequestException("Invalid Input");
+        }
+	    customerProfileService.createCustomerProfile(userInput, tokenInfo);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
     @Override
     //Incomplete
-    public ResponseEntity<Void> updateProfile(Object header, @Valid UserInput userInput,
+    public ResponseEntity<Void> updateProfile(String header, UserInput userInput,
             BindingResult bindingResult, UUID customerId) throws Exception {
-        customerProfileService.updateCustomer(customerId, userInput);
+    	ObjectMapper mapper = new ObjectMapper();
+    	Header headerObj = mapper.readValue(header, Header.class);
+    	
+    	String idToken = headerObj.getIdToken();
+    	TokenInfo tokenInfo = tokenVerifier.verifyToken(idToken);
+    	
+    	customerProfileService.updateCustomer(customerId, userInput, tokenInfo);
 	    return new ResponseEntity<Void>(HttpStatus.OK);
     }
 

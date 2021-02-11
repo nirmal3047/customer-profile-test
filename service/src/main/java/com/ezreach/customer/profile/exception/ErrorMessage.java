@@ -1,5 +1,6 @@
 package com.ezreach.customer.profile.exception;
 
+import java.util.Map;
 import java.util.UUID;
 
 public class ErrorMessage {
@@ -7,13 +8,13 @@ public class ErrorMessage {
     private UUID id;
     private String errorCode;
     private String message;
-    private Params param;
+    private Map<String, String> params;
 
-    public ErrorMessage(UUID id, String errorCode, String message, Params param) {
+    public ErrorMessage(UUID id, String errorCode, String message, Map<String, String> params) {
         this.id = id;
         this.errorCode = errorCode;
         this.message = message;
-        this.param = param;
+        this.params = params;
     }
 
     public ErrorMessage() { }
@@ -42,11 +43,11 @@ public class ErrorMessage {
         this.message = message;
     }
 
-    public Params getParam() {
-        return param;
+    public Map<String, String> getParam() {
+        return params;
     }
 
-    public void setParam(Params param) {
-        this.param = param;
+    public void setParam(Map<String, String> params) {
+        this.params = params;
     }
 }

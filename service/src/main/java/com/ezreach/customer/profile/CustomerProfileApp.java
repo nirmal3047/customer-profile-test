@@ -12,14 +12,6 @@ import java.time.Duration;
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.ezreach.*"})
 public class CustomerProfileApp {
-
-    /*@Bean
-    public RestTemplate createRestTemplate(RestTemplateBuilder builder) {
-        return builder
-                .setConnectTimeout(Duration.ofMillis(3000))
-                .setReadTimeout(Duration.ofMillis(3000))
-                .build();
-    }*/
 	
 	@Bean
 	public RestTemplate createRestTemplate() {

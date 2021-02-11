@@ -41,3 +41,6 @@ management:
 
 gst:
   baseUrl: "http://localhost:8093/gst/taxpayer"
+  
+customerProfile:
+  exceptionId: "001"

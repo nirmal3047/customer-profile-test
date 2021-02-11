@@ -1,12 +1,17 @@
 package com.ezreach.customer.profile.service;
 
 import com.ezreach.customer.profile.entity.Customer;
+import com.ezreach.customer.profile.entity.TokenInfo;
 import com.ezreach.customer.profile.entity.UserInput;
 import com.ezreach.customer.profile.exception.CustomerNotFoundException;
 import com.ezreach.customer.profile.exception.GstServerDownException;
 import com.ezreach.customer.profile.repository.CustomerDao;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -35,7 +40,6 @@ public class CustomerProfileService {
 
     @Transactional
     public Customer saveCustomer(Customer customer) {
-
         return customerDao.save(customer);
     }
 
@@ -45,31 +49,46 @@ public class CustomerProfileService {
         }
         catch (HttpClientErrorException e) {
         	throw new GstServerDownException(HttpStatus.INTERNAL_SERVER_ERROR);
-        	}
+        }
     }
 
-    @Transactional
-    public void createCustomerProfile(UserInput userInput)
-    		throws JsonProcessingException, GstServerDownException {
-        //Get data from GST server
+    public Customer setCustomerDetails(UserInput userInput, Customer customer, TokenInfo tokenInfo)
+    		throws JsonProcessingException, ParseException {
+    	//Get data from GST server
         String gstin = userInput.getGstin();
         Object customerDetails = getDataFromGst(gstin);
+
         ObjectMapper mapper = new ObjectMapper();
-        String jsonString = mapper.writeValueAsString(customerDetails);
+        String gstDetails = mapper.writeValueAsString(customerDetails);
+        
+        //Getting the name of the organization from GST details
+        JSONParser parser = new JSONParser();
+        JSONObject jo = (JSONObject) parser.parse(gstDetails);  
+        String name = jo.get("lgnm").toString();    //lgnm: Legal name of the organization
 
         //Creating customer profile
-        Customer customer = new Customer();
-        customer.setCustomerId(UUID.randomUUID());
         customer.setGstin(gstin);
         customer.setPan(userInput.getPan());
         customer.setUdyogAadhaar(userInput.getUdyogAadhaar());
-        customer.setEmail("email");
+        customer.setEmail(tokenInfo.getEmail());
         customer.setTurnover(userInput.getTurnover());
-        customer.setName(null);
-        customer.setMobile(null);
-        customer.setGstDetails(jsonString);
-        customer.setUserId(UUID.randomUUID()); //To be edited
-
+        customer.setName(name);
+        customer.setMobile(tokenInfo.getMobile());
+        customer.setGstDetails(gstDetails);
+        customer.setUserId(tokenInfo.getUserId());
+        
+        return customer;
+    }
+    
+    @Transactional
+    public void createCustomerProfile(UserInput userInput, TokenInfo tokenInfo)
+    		throws JsonProcessingException, GstServerDownException, ParseException {
+        
+        //Creating customer profile
+        Customer customer = new Customer();
+        customer = setCustomerDetails(userInput, customer, tokenInfo);
+        customer.setCustomerId(UUID.randomUUID());
+ 
         //Saving the customer in database
         saveCustomer(customer);
     }
@@ -77,32 +96,20 @@ public class CustomerProfileService {
 
 
     @Transactional
-    public void updateCustomer(UUID customerId, UserInput userInput)
-    		throws CustomerNotFoundException, JsonProcessingException {
+    public void updateCustomer(UUID customerId, UserInput userInput, TokenInfo tokenInfo)
+    		throws Exception {
         //finding existing customer in the database
     	Customer customer = findCustomer(customerId);
     	
-    	//Get data from GST server
-        String gstin = userInput.getGstin();
-        Object customerDetails = getDataFromGst(gstin);
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonString = mapper.writeValueAsString(customerDetails);
-        
-        customer.setPan(userInput.getPan());
-        customer.setUdyogAadhaar(userInput.getUdyogAadhaar());
-        customer.setEmail("email");
-        customer.setTurnover(userInput.getTurnover());
-        customer.setName(null);
-        customer.setMobile(null);
-        customer.setGstDetails(jsonString);
-        customer.setUserId(UUID.randomUUID()); //To be edited
+    	//Updating customer profile
+        customer = setCustomerDetails(userInput, customer, tokenInfo);
         
         //Updating the customer in database
         saveCustomer(customer);
     }
 
     @Transactional
-    public Customer findCustomer(UUID customerId) throws CustomerNotFoundException {
+    public Customer findCustomer(UUID customerId) throws Exception {
         Optional<Customer> customer = customerDao.findById(customerId);
         if(customer.isPresent()){
             return customer.get();
