@@ -14,7 +14,3 @@ subprojects {
 	}
 
 }
-
-bootJar {
-    mainClassName = 'com.ezreach.customer.profile.CustomerProfileApp'
-}

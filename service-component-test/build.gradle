@@ -1,20 +1,4 @@
-plugins {
-    id 'org.springframework.boot' version '2.3.2.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
-    id 'java'
-}
-
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
-    testImplementation 'com.github.tomakehurst:wiremock:2.27.2:pom'
-}
-
-test {
-    useJUnitPlatform()
 }
