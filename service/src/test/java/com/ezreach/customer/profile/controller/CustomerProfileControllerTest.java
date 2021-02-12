@@ -8,12 +8,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
+
+import javax.sql.DataSource;
 
 import com.ezreach.customer.profile.configuration.TokenVerifier;
 import com.ezreach.customer.profile.entity.Customer;
@@ -39,12 +42,18 @@ import org.springframework.util.FileCopyUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
+@AutoConfigureEmbeddedDatabase(beanName="dataSource")
 public class CustomerProfileControllerTest {
 
 	final Logger LOGGER = LoggerFactory.getLogger(getClass());
+	
+	@Autowired
+	private DataSource dataSource;
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -162,6 +171,7 @@ public class CustomerProfileControllerTest {
 	    
 		mockMvc.perform(get("/v1/customer/profile/{customerId}", customerId)
 				.header("authorization", token))
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isFound());
 	}
 	
@@ -178,6 +188,7 @@ public class CustomerProfileControllerTest {
 	    
 		mockMvc.perform(get("/v1/customer/profile/{customerId}", customerId)
 				.header("authorization", token))
+				.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isNotFound());
 	}
 
