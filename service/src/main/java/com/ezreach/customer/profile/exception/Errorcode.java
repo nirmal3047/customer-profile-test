@@ -11,4 +11,7 @@ public class Errorcode {
 	
 	//Bad request (400)
 	public static final String BAD_REQUEST_CODE = "001";
+	
+	//Forbidden
+	public static final String TOKEN_EXPIRED_CODE = "001";
 }

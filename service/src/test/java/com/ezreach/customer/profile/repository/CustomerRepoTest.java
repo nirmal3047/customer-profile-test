@@ -1,5 +1,6 @@
 package com.ezreach.customer.profile.repository;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import com.ezreach.customer.profile.entity.Customer;
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -30,30 +31,12 @@ public class CustomerRepoTest {
 	private CustomerDao customerDao;
     
     @Test
-	public void testCustomerDaoisNotNull() {
+	public void testCustomerDaoIsNotNull() {
     	assertThat(customerDao).isNotNull();
     }
     
-    /*@Test
-    public void testSaveCustomer() {
-    	Customer mockCustomer = new Customer(
-    			UUID.randomUUID(),
-    			"name",
-    			"gstin",
-    			"pan",
-    			"udyogAadhaar",
-    			"email",
-    			"mobile",
-    			10000,
-    			"address",
-    			UUID.randomUUID());
-    	Customer returnedCustomer = customerDao.save(mockCustomer);
-    	assertEquals(mockCustomer, returnedCustomer);
-    }*/
-    
-    public void testFindCustomer() {
-    	UUID customerId = UUID.randomUUID();
-    	Customer mockCustomer = new Customer(
+    public Customer returnCustomer(UUID customerId) {
+    	Customer customer = new Customer(
     			customerId,
     			"name",
     			"gstin",
@@ -62,12 +45,30 @@ public class CustomerRepoTest {
     			"email",
     			"mobile",
     			10000,
-    			"address",
+    			"gst_details",
     			UUID.randomUUID());
+    	return customer;
+    }
+    
+    @Test
+    @DisplayName("test save customer - success")
+    public void testSaveCustomer() {
+    	UUID customerId = UUID.randomUUID();
+    	Customer mockCustomer = returnCustomer(customerId);
+    	Customer returnedCustomer = customerDao.save(mockCustomer);
+    	assertEquals(mockCustomer.getCustomerId(), returnedCustomer.getCustomerId());
+    }
+    
+    @Test
+    @DisplayName("test find customer - success")
+    public void testFindCustomer() {
+    	UUID customerId = UUID.randomUUID();
+    	Customer mockCustomer = returnCustomer(customerId);
+    	
     	customerDao.save(mockCustomer);
     	Optional<Customer> returnedCustomer = customerDao.findById(customerId);
     	assertThat(returnedCustomer.isPresent());
-    	assertEquals(mockCustomer, returnedCustomer.get());
+    	assertEquals(mockCustomer.getCustomerId(), returnedCustomer.get().getCustomerId());
     }
 
 }

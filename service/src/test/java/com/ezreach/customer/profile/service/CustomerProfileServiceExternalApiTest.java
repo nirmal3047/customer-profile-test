@@ -1,21 +1,25 @@
 package com.ezreach.customer.profile.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
+import com.ezreach.customer.profile.exception.GstNotFoundException;
+import com.ezreach.customer.profile.exception.GstServerDownException;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import com.github.tomakehurst.wiremock.client.WireMock;
 
 @SpringBootTest
 @TestPropertySource(locations="classpath:application.properties")
-public class CustomerProfileServiceComponentTest {
+public class CustomerProfileServiceExternalApiTest {
 
     @Autowired
     private CustomerProfileService customerProfileService;
@@ -56,8 +60,21 @@ public class CustomerProfileServiceComponentTest {
     }
     
     @Test
-    public void demoTest(){
+    @DisplayName("Fetch GST details - success")
+    public void shouldReturnCustomerDetails() throws GstServerDownException, GstNotFoundException{
     	Object obj = customerProfileService.getDataFromGst("1");
     	assertThat(obj).isNotNull();
+    }
+    
+    @Test
+    @DisplayName("Fetch GST details - fail")
+    public void shouldReturnNotFound() throws GstServerDownException, GstNotFoundException {
+    	boolean exceptionThrown = false;
+    	try {
+    		Object obj = customerProfileService.getDataFromGst("2");
+    	} catch (GstNotFoundException e) {
+    		exceptionThrown = true;
+    	}
+    	assertTrue(exceptionThrown);
     }
 }

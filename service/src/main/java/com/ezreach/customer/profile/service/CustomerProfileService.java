@@ -4,14 +4,13 @@ import com.ezreach.customer.profile.entity.Customer;
 import com.ezreach.customer.profile.entity.TokenInfo;
 import com.ezreach.customer.profile.entity.UserInput;
 import com.ezreach.customer.profile.exception.CustomerNotFoundException;
+import com.ezreach.customer.profile.exception.GstNotFoundException;
 import com.ezreach.customer.profile.exception.GstServerDownException;
 import com.ezreach.customer.profile.repository.CustomerDao;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -43,17 +42,20 @@ public class CustomerProfileService {
         return customerDao.save(customer);
     }
 
-    public Object getDataFromGst(String gstin) throws GstServerDownException {
+    public Object getDataFromGst(String gstin) throws GstServerDownException, GstNotFoundException {
         try{
             return restTemplate.getForObject(baseUrl + "/" + gstin, Object.class);
         }
+        catch (HttpClientErrorException.NotFound e) {
+        	throw new GstNotFoundException("GST Not Found", gstin);
+        }
         catch (HttpClientErrorException e) {
-        	throw new GstServerDownException(HttpStatus.INTERNAL_SERVER_ERROR);
+        	throw new GstServerDownException(HttpStatus.SERVICE_UNAVAILABLE);
         }
     }
 
     public Customer setCustomerDetails(UserInput userInput, Customer customer, TokenInfo tokenInfo)
-    		throws JsonProcessingException, ParseException {
+    		throws Exception {
     	//Get data from GST server
         String gstin = userInput.getGstin();
         Object customerDetails = getDataFromGst(gstin);
@@ -82,7 +84,7 @@ public class CustomerProfileService {
     
     @Transactional
     public void createCustomerProfile(UserInput userInput, TokenInfo tokenInfo)
-    		throws JsonProcessingException, GstServerDownException, ParseException {
+    		throws Exception {
         
         //Creating customer profile
         Customer customer = new Customer();
@@ -92,8 +94,6 @@ public class CustomerProfileService {
         //Saving the customer in database
         saveCustomer(customer);
     }
-
-
 
     @Transactional
     public void updateCustomer(UUID customerId, UserInput userInput, TokenInfo tokenInfo)
@@ -109,13 +109,13 @@ public class CustomerProfileService {
     }
 
     @Transactional
-    public Customer findCustomer(UUID customerId) throws Exception {
+    public Customer findCustomer(UUID customerId) throws CustomerNotFoundException {
         Optional<Customer> customer = customerDao.findById(customerId);
         if(customer.isPresent()){
             return customer.get();
         }
         else {
-            throw new CustomerNotFoundException("Customer not found in the database", customerId);
+            throw new CustomerNotFoundException("Customer Not Found");
         }
     }
 

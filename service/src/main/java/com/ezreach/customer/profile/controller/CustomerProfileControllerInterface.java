@@ -1,7 +1,6 @@
 package com.ezreach.customer.profile.controller;
 
 import com.ezreach.customer.profile.entity.Customer;
-import com.ezreach.customer.profile.entity.Header;
 import com.ezreach.customer.profile.entity.UserInput;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -24,10 +23,10 @@ public interface CustomerProfileControllerInterface {
                                               @PathVariable("customerId") UUID customerId) throws Exception;
 
     @GetMapping("/profile/{customerId}")
-    public ResponseEntity<Customer> fetchProfile(@RequestHeader("authorization") Object header,
+    public ResponseEntity<Customer> fetchProfile(@RequestHeader("authorization") String header,
     											@PathVariable("customerId") UUID customerId) throws Exception;
 
     @DeleteMapping("/profile/{customerId}")
-    public ResponseEntity<Void> deleteProfile(@RequestHeader("authorization") Object header,
+    public ResponseEntity<Void> deleteProfile(@RequestHeader("authorization") String header,
     										@PathVariable("customerId") UUID customerId) throws Exception;
 }

@@ -1,18 +1,25 @@
 package com.ezreach.customer.profile.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.CoreMatchers.containsString;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.UUID;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-
+import com.ezreach.customer.profile.configuration.TokenVerifier;
+import com.ezreach.customer.profile.entity.Customer;
+import com.ezreach.customer.profile.entity.TokenInfo;
 import com.ezreach.customer.profile.entity.UserInput;
+import com.ezreach.customer.profile.exception.CustomerNotFoundException;
 import com.ezreach.customer.profile.service.CustomerProfileService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,7 +37,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.FileCopyUtils;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ExtendWith(SpringExtension.class)
@@ -42,11 +48,14 @@ public class CustomerProfileControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
+	
+	@Autowired
+	private TokenVerifier tokenVerifier;
 
 	@MockBean
 	private CustomerProfileService mockService;
 
-	//@Test
+	@Test
 	public void mockMvcIsNotNull() {
 		assertThat(mockMvc).isNotNull();
 	}
@@ -64,73 +73,146 @@ public class CustomerProfileControllerTest {
         return data;
 	}
 	
-	//@Test
-	//@DisplayName("Test createProfile success")
+	public Customer returnMockCustomer(UUID customerId) {
+		Customer mockCustomer = new Customer(
+				customerId,
+				"name",
+    			"gstin",
+    			"pan",
+    			"udyogAadhaar",
+    			"email",
+    			"mobile",
+    			10000,
+    			"gst_details",
+    			UUID.randomUUID());
+		return mockCustomer;
+	}
+	
+	@Test
+	@DisplayName("Test createProfile - success")
 	public void shouldReturnHttpStatusCreated() throws Exception {
+		//Reader header value from a file
+	    String token = readFile("validToken.txt");
+	    
 		UserInput userInput = new UserInput("05ABNTY3290P8ZA", "CPAA1234AB", "123456789012", 10000);
+		TokenInfo tokenInfo = tokenVerifier.verifyToken(token);
+		
 		ObjectMapper mapper = new ObjectMapper();
 	    String jsonString = mapper.writeValueAsString(userInput);
-		
-	    //Reader header value from a file
-	    String headerString = readFile("validToken.txt");
 	    
+	    doNothing().when(mockService).createCustomerProfile(userInput, tokenInfo);
+ 
 		mockMvc.perform(post("/v1/customer/profile")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(jsonString)
-				.header("authorization", headerString))
+				.header("authorization", token))
 				.andExpect(status().isCreated());
 	}
 
 	@Test
 	@DisplayName("Test createProfile fail - Bad Request")
 	public void shouldReturnHttpStatusBadRequest() throws Exception {
+		//Reader header value from a file
+	    String token = readFile("validToken.txt");
+	    
 		//GSTIN is null
 		UserInput userInput = new UserInput(null, "CPAA1234AB", "123456789012", 10000);
+		TokenInfo tokenInfo = tokenVerifier.verifyToken(token);
 		ObjectMapper mapper = new ObjectMapper();
 	    String jsonString = mapper.writeValueAsString(userInput);
 		
-	    //Reader header value from a file
-	    String headerString = readFile("validToken.txt");
+	    doNothing().when(mockService).createCustomerProfile(userInput, tokenInfo);
 	    
 		mockMvc.perform(post("/v1/customer/profile")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(jsonString)
-				.header("authorization", headerString))
+				.header("authorization", token))
 				.andExpect(status().isBadRequest());
 	}
 	
-	//@Test
-	//@DisplayName("Test createProfile fail - Token Expired")
+	@Test
+	@DisplayName("Test createProfile fail - Token Expired")
 	public void shouldReturnHttpStatusTokenExpired() throws Exception {
+		//Reader header value from a file (expired token)
+	    String token = readFile("expiredToken.txt");
+		
 		UserInput userInput = new UserInput("05ABNTY3290P8ZA", "CPAA1234AB", "123456789012", 10000);
+		TokenInfo tokenInfo = new TokenInfo(UUID.randomUUID(), "email@demo.com", "7788226644");
 		ObjectMapper mapper = new ObjectMapper();
 	    String jsonString = mapper.writeValueAsString(userInput);
 		
-	    //Reader header value from a file (expired token)
-	    String headerString = readFile("expiredToken.txt");
-	    
+	    doNothing().when(mockService).createCustomerProfile(userInput, tokenInfo);
+
 		mockMvc.perform(post("/v1/customer/profile")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(jsonString)
-				.header("authorization", headerString))
-				.andExpect(status().isInternalServerError());
+				.header("authorization", token))
+				.andExpect(status().isForbidden());
 	}
 	
-	//@Test
-	//@DisplayName("Test fetchProfile - success")
-	public void shouldReturnHttpStatusFound() {
+	@Test
+	@DisplayName("Test fetchProfile - success")
+	public void shouldReturnHttpStatusFound() throws Exception {
+		UUID customerId = UUID.fromString("42aa5557-3482-46ff-a754-c69b64d04e4b");
+		Customer mockCustomer = returnMockCustomer(customerId);
+		doReturn(mockCustomer).when(mockService).findCustomer(customerId);
+		
+		//Reader header value from a file (expired token)
+	    String token = readFile("validToken.txt");
+	    
+		mockMvc.perform(get("/v1/customer/profile/{customerId}", customerId)
+				.header("authorization", token))
+				.andExpect(status().isFound());
+	}
+	
+	@Test
+	@DisplayName("Test fetchProfile - failed - CustomerNotFound")
+	public void shouldReturnHttpStatusNotFound() throws Exception {
+		UUID customerId = UUID.fromString("42aa5557-3482-46ff-a754-c69b64d04e4b");
 
+		CustomerNotFoundException exception = new CustomerNotFoundException("Customer Not Found");
+		doThrow(exception).when(mockService).findCustomer(customerId);
+		
+		//Reader header value from a file (expired token)
+	    String token = readFile("validToken.txt");
+	    
+		mockMvc.perform(get("/v1/customer/profile/{customerId}", customerId)
+				.header("authorization", token))
+				.andExpect(status().isNotFound());
 	}
 
-	//@Test
-	//@DisplayName("Test deleteProfile - success")
-	public void shouldReturnHttpStatus() {
-
+	@Test
+	@DisplayName("Test deleteProfile - success")
+	public void shouldReturnHttpStatusOk() throws Exception{
+		UUID customerId = UUID.fromString("42aa5557-3482-46ff-a754-c69b64d04e4b");
+		doNothing().when(mockService).deleteCustomer(customerId);
+		
+		//Reader header value from a file (expired token)
+	    String token = readFile("validToken.txt");
+	    
+		mockMvc.perform(delete("/v1/customer/profile/{customerId}", customerId)
+				.header("authorization", token))
+				.andExpect(status().isOk());
 	}
 
-	//@Test
-	//@DisplayName("Test updateProfile - success")
-	public void testUpdateProfile() {
+	@Test
+	@DisplayName("Test updateProfile - success")
+	public void testUpdateProfile() throws Exception {
+		//Reader header value from a file (expired token)
+	    String token = readFile("validToken.txt");
+	    
+		UserInput userInput = new UserInput("05ABNTY3290P8ZA", "CPAA1234AB", "123456789012", 10000);
+		ObjectMapper mapper = new ObjectMapper();
+	    String jsonString = mapper.writeValueAsString(userInput);
+	    
+		TokenInfo tokenInfo = tokenVerifier.verifyToken(token);
+		UUID customerId = UUID.fromString("42aa5557-3482-46ff-a754-c69b64d04e4b");
+		doNothing().when(mockService).updateCustomer(customerId, userInput, tokenInfo);
 
+		mockMvc.perform(put("/v1/customer/profile/{customerId}", customerId)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(jsonString)
+				.header("authorization", token))
+				.andExpect(status().isOk());
 	}
 }

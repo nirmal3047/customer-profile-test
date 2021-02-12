@@ -31,44 +31,44 @@ public class CustomerProfileController implements CustomerProfileControllerInter
 	}
 
     @Override
-    public ResponseEntity<Void> createProfile(String header, UserInput userInput, BindingResult bindingResult)
-    				throws Exception {
-    	ObjectMapper mapper = new ObjectMapper();
-    	Header headerObj = mapper.readValue(header, Header.class);
-    	
-    	String idToken = headerObj.getIdToken();
-    	TokenInfo tokenInfo = tokenVerifier.verifyToken(idToken);
+    public ResponseEntity<Void> createProfile(String header, UserInput userInput,
+    										BindingResult bindingResult) throws Exception {
+    	TokenInfo tokenInfo = tokenVerifier.verifyToken(header);
     	
     	if (bindingResult.hasErrors()) {
-            throw new BadRequestException("Invalid Input");
+    		int errorCount = bindingResult.getErrorCount();
+            throw new BadRequestException("Invalid Input", errorCount);
         }
 	    customerProfileService.createCustomerProfile(userInput, tokenInfo);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
     @Override
-    //Incomplete
     public ResponseEntity<Void> updateProfile(String header, UserInput userInput,
-            BindingResult bindingResult, UUID customerId) throws Exception {
-    	ObjectMapper mapper = new ObjectMapper();
-    	Header headerObj = mapper.readValue(header, Header.class);
+            					BindingResult bindingResult, UUID customerId) throws Exception {
+    	TokenInfo tokenInfo = tokenVerifier.verifyToken(header);
     	
-    	String idToken = headerObj.getIdToken();
-    	TokenInfo tokenInfo = tokenVerifier.verifyToken(idToken);
-    	
+    	if (bindingResult.hasErrors()) {
+    		int errorCount = bindingResult.getErrorCount();
+            throw new BadRequestException("Invalid Input", errorCount);
+        }
     	customerProfileService.updateCustomer(customerId, userInput, tokenInfo);
 	    return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<Customer> fetchProfile(Object header, UUID customerId) throws Exception {
-	    Customer customer = customerProfileService.findCustomer(customerId);
+    public ResponseEntity<Customer> fetchProfile(String header, UUID customerId) throws Exception {
+    	
+    	TokenInfo tokenInfo = tokenVerifier.verifyToken(header);
+    	Customer customer = customerProfileService.findCustomer(customerId);
         return new ResponseEntity<Customer>(customer, HttpStatus.FOUND);
     }
 
     @Override
-    public ResponseEntity<Void> deleteProfile(Object header, UUID customerId) throws Exception {
-        customerProfileService.deleteCustomer(customerId);
+    public ResponseEntity<Void> deleteProfile(String header, UUID customerId) throws Exception {
+    	
+    	TokenInfo tokenInfo = tokenVerifier.verifyToken(header);
+    	customerProfileService.deleteCustomer(customerId);
     	return new ResponseEntity<Void>(HttpStatus.OK);
     }
 

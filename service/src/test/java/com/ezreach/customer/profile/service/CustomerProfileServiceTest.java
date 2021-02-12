@@ -16,9 +16,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 
@@ -32,36 +32,8 @@ class CustomerProfileServiceTest {
     @MockBean
     private CustomerDao customerDao;
 
-    @Test
-    public void serviceIsNotNull() {
-        assertThat(customerProfileService).isNotNull();
-    }
-
-    @Test
-    @DisplayName("Test save customer")
-    public void testSave() {
-        Customer mockCustomer = new Customer(
-    			UUID.randomUUID(),
-    			"name",
-    			"gstin",
-    			"pan",
-    			"udyogAadhaar",
-    			"email",
-    			"mobile",
-    			10000,
-    			"gst_details",
-    			UUID.randomUUID());
-        doReturn(mockCustomer).when(customerDao).save(any());
-        Customer returnedCustomer = customerProfileService.saveCustomer(mockCustomer);
-
-        assertNotNull(returnedCustomer);
-        assertEquals(mockCustomer, returnedCustomer);
-    }
-
-    @Test
-    public void testFindCustomerSuccess() throws CustomerNotFoundException {
-    	UUID customerId = UUID.randomUUID();
-    	Customer mockCustomer = new Customer(
+    public Customer returnCustomer(UUID customerId) {
+    	Customer customer = new Customer(
     			customerId,
     			"name",
     			"gstin",
@@ -72,6 +44,32 @@ class CustomerProfileServiceTest {
     			10000,
     			"gst_details",
     			UUID.randomUUID());
+    	return customer;
+    }
+    
+    @Test
+    public void serviceIsNotNull() {
+        assertThat(customerProfileService).isNotNull();
+    }
+
+    @Test
+    @DisplayName("Test save customer - success")
+    public void testSave() {
+    	UUID customerId = UUID.randomUUID();
+        Customer mockCustomer = returnCustomer(customerId);
+        
+        doReturn(mockCustomer).when(customerDao).save(any());
+        Customer returnedCustomer = customerProfileService.saveCustomer(mockCustomer);
+
+        assertNotNull(returnedCustomer);
+        assertEquals(mockCustomer, returnedCustomer);
+    }
+
+    @Test
+    @DisplayName("Test find customer - success")
+    public void testFindCustomerSuccess() throws CustomerNotFoundException {
+    	UUID customerId = UUID.randomUUID();
+        Customer mockCustomer = returnCustomer(customerId);
     	
     	doReturn(Optional.of(mockCustomer)).when(customerDao).findById(customerId);
     	Customer returnedCustomer = customerProfileService.findCustomer(customerId);
@@ -81,33 +79,19 @@ class CustomerProfileServiceTest {
     }
 
 	@Test
+	@DisplayName("Test find customer - fail")
     public void testFindCustomerFail() throws CustomerNotFoundException {
 		UUID customerId = UUID.randomUUID();
-    	Customer mockCustomer = new Customer(
-    			customerId,
-    			"name",
-    			"gstin",
-    			"pan",
-    			"udyogAadhaar",
-    			"email",
-    			"mobile",
-    			10000,
-    			"gst_details",
-    			UUID.randomUUID());
+        Customer mockCustomer = returnCustomer(customerId);
+        
     	doReturn(Optional.empty()).when(customerDao).findById(customerId);
-    	Customer returnedCustomer = customerProfileService.findCustomer(customerId);
-    	assertNull(returnedCustomer);
+    	boolean exceptionThrown = false;
+    	try {
+    		customerProfileService.findCustomer(customerId);
+    	} catch(CustomerNotFoundException e) {
+    		exceptionThrown = true;
+    	}
+    	assertTrue(exceptionThrown);
 	}
-	
-	/*
-	@Test
-    public void testUpdateCustomer() {
-        //customerProfileService.updateCustomer();
-    }
-	
-	@Test
-	public void testDeleteCustomer() {
-		
-	}*/
 
 }

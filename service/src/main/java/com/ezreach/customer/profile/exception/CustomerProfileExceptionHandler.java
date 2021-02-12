@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-//import com.indexdata.mkjsf;
 
 @ControllerAdvice
 public class CustomerProfileExceptionHandler {
@@ -21,49 +20,60 @@ public class CustomerProfileExceptionHandler {
 	private Errorcode errorcode = new Errorcode();
 	
 	@ExceptionHandler(GstServerDownException.class)
-    public ResponseEntity<ErrorMessage> handleException(GstServerDownException gstServerDownException) {
+    public ResponseEntity<ErrorMessage> handleGstServerDown(GstServerDownException gstServerDownException) {
 		Map<String, String> params = new HashMap<String,String>();
-		params.put("", "");
 		
         UUID errorId = UUID.randomUUID();
-        String errorCode = "500" + "." + apiErrorCode + "." + errorcode.GST_SERVER_DOWN_CODE;
+        String errorCode = "503" + "." + apiErrorCode + "." + errorcode.GST_SERVER_DOWN_CODE;
         
-        ErrorMessage errorMessage = new ErrorMessage(errorId, errorCode, "GST Server down", params);
-        return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+        ErrorMessage errorMessage = new ErrorMessage(errorId, errorCode, gstServerDownException.getMessage(), params);
+        return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.SERVICE_UNAVAILABLE);
     }
 
     @ExceptionHandler(GstNotFoundException.class)
-    public ResponseEntity<ErrorMessage> gstException(GstNotFoundException exception) {
+    public ResponseEntity<ErrorMessage> handleGstNotFOund(GstNotFoundException gstNotFoundException) {
     	Map<String, String> params = new HashMap<String,String>();
-		params.put("gstin", "gstin");
+		params.put("gstin", gstNotFoundException.getGstin());
 		
         UUID errorId = UUID.randomUUID();
         String errorCode = "404" + "." + apiErrorCode + "." + errorcode.GST_NOT_FOUND_CODE;
         
-        ErrorMessage errorMessage = new ErrorMessage(errorId, errorCode, "GST Not Found", params);
+        ErrorMessage errorMessage = new ErrorMessage(errorId, errorCode, gstNotFoundException.getMessage(), params);
         return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(CustomerNotFoundException.class)
-    public ResponseEntity<ErrorMessage> customerNotFoundHandler(CustomerNotFoundException exception) {
+    public ResponseEntity<ErrorMessage> handleCustomerNotFound(CustomerNotFoundException exception) {
     	Map<String, String> params = new HashMap<String,String>();
-		//params.put("", "");
 		
         UUID errorId = UUID.randomUUID();
         String errorCode = "404" + "." + apiErrorCode + "." + errorcode.CUSTOMER_NOT_FOUND_CODE;
         
-        ErrorMessage errorMessage = new ErrorMessage(errorId, errorCode, "Customer Not Found", params);
+        ErrorMessage errorMessage = new ErrorMessage(errorId, errorCode, exception.getMessage(), params);
         return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.NOT_FOUND);
     }
     
-    public ResponseEntity<ErrorMessage> badRequesthandler(BadRequestException exception) {
-    	Map<String, String> params = new HashMap<String,String>();
-		params.put("", "");
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorMessage> handleBadRequest(BadRequestException badRequestException) {
+    	Map<String, String> params = new HashMap<String, String>();
+    	Integer count = badRequestException.getErrorCount();
+		params.put("errorCount", count.toString());
 		
         UUID errorId = UUID.randomUUID();
         String errorCode = "400" + "." + apiErrorCode + "." + errorcode.BAD_REQUEST_CODE;
         
-        ErrorMessage errorMessage = new ErrorMessage(errorId, errorCode, "Invalid Input", params);
+        ErrorMessage errorMessage = new ErrorMessage(errorId, errorCode, badRequestException.getMessage(), params);
     	return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+    
+    @ExceptionHandler(TokenExpiredException.class)
+    public ResponseEntity<ErrorMessage> handleTokenExpired(TokenExpiredException tokenExpiredException) {
+    	Map<String, String> params = new HashMap<String, String>();
+		
+        UUID errorId = UUID.randomUUID();
+        String errorCode = "403" + "." + apiErrorCode + "." + errorcode.TOKEN_EXPIRED_CODE;
+        
+        ErrorMessage errorMessage = new ErrorMessage(errorId, errorCode, tokenExpiredException.getMessage(), params);
+    	return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.FORBIDDEN);
     }
 }
