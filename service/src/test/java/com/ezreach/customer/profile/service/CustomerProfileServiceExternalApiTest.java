@@ -3,6 +3,8 @@ package com.ezreach.customer.profile.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import javax.sql.DataSource;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,11 +19,17 @@ import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder;
 import com.github.tomakehurst.wiremock.client.WireMock;
 
+import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
+
 @SpringBootTest
 @TestPropertySource(locations="classpath:application.properties")
+@AutoConfigureEmbeddedDatabase(beanName="dataSource")
 public class CustomerProfileServiceExternalApiTest {
 
-    @Autowired
+	@Autowired
+	private DataSource dataSource;
+	
+	@Autowired
     private CustomerProfileService customerProfileService;
 
     private WireMockServer mockServer;

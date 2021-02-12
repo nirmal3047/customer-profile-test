@@ -4,6 +4,8 @@ import com.ezreach.customer.profile.entity.Customer;
 import com.ezreach.customer.profile.exception.CustomerNotFoundException;
 import com.ezreach.customer.profile.repository.CustomerDao;
 
+import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +17,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.sql.DataSource;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,9 +28,13 @@ import static org.mockito.Mockito.doReturn;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
+@AutoConfigureEmbeddedDatabase(beanName="dataSource")
 class CustomerProfileServiceTest {
 
-    @Autowired
+	@Autowired
+	private DataSource dataSource;
+	
+	@Autowired
     private CustomerProfileService customerProfileService;
 
     @MockBean
