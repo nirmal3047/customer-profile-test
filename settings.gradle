@@ -1,6 +1,3 @@
-rootProject.name = 'ms-bootstrap'
+rootProject.name = 'customer-profile'
 include 'service'
 include 'service-component-test'
-include 'service-contract-test-consumer'
-include 'service-contract-test-producer'
-

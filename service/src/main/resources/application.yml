@@ -1,14 +1,36 @@
 spring:
   application:
-    name: ms-bootstrap
+    name: customer-profile-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ezyreach # For database running in local
+    #url: jdbc:postgresql://database-1.ccqajyneyjhe.us-east-1.rds.amazonaws.com:5435/postgres
+    #username: ${RDS_USERNAME}
+    #password: ${RDS_PASSWORD} #ezreach-profile
+    username: postgres
+    password: aaa
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+  flyway:
+    enabled: true
+    baselineOnMigrate: true
+    #user: ${RDS_USERNAME}
+    #password: ${RDS_PASSWORD}
+    user: postgres
+    password: aaa
+    schemas: onboard
+    locations: classpath:db/migration
 
 server:
-  port: 9288
+  port: 9290
 
 logging:
   level:
     root: INFO
-    com.ezyreach: INFO
+    com.ezreach: INFO
 
 management:
   endpoints:
@@ -21,3 +43,14 @@ management:
   info:
     git:
       mode: full
+
+gst:
+  baseUrl: "http://localhost:8093/gst/taxpayer"
+  
+customerProfile:
+  exceptionId: "001"
+
+aws:
+  cognito:
+    region: "us-east-1"
+    poolId: "us-east-1_dd6taeJ12"
