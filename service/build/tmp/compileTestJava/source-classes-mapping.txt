@@ -1,10 +1,10 @@
 com/ezreach/customer/profile/controller/CustomerProfileControllerTest.java
  com.ezreach.customer.profile.controller.CustomerProfileControllerTest
-com/ezreach/customer/profile/service/CustomerProfileServiceComponentTest.java
- com.ezreach.customer.profile.service.CustomerProfileServiceComponentTest
 com/ezreach/customer/profile/repository/CustomerRepoTest.java
  com.ezreach.customer.profile.repository.CustomerRepoTest
+com/ezreach/customer/profile/repository/GstRepoTest.java
+ com.ezreach.customer.profile.repository.GstRepoTest
+com/ezreach/customer/profile/service/GstProfileServiceTest.java
+ com.ezreach.customer.profile.service.GstProfileServiceTest
 com/ezreach/customer/profile/service/CustomerProfileServiceTest.java
  com.ezreach.customer.profile.service.CustomerProfileServiceTest
-com/ezreach/customer/profile/CustomerProfileAppTest.java
- com.ezreach.customer.profile.CustomerProfileAppTest

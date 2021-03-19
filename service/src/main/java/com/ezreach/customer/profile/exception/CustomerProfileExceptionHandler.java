@@ -76,4 +76,16 @@ public class CustomerProfileExceptionHandler {
         ErrorMessage errorMessage = new ErrorMessage(errorId, errorCode, tokenExpiredException.getMessage(), params);
     	return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.FORBIDDEN);
     }
+
+    @ExceptionHandler(BadDatabaseConnectionException.class)
+    public ResponseEntity<ErrorMessage> handleBadGateway(TokenExpiredException tokenExpiredException) {
+        Map<String, String> params = new HashMap<String, String>();
+
+        UUID errorId = UUID.randomUUID();
+        String errorCode = "502" + "." + apiErrorCode + "." + errorcode.BAD_DATABASE_CONNECTION_CODE;
+
+        String message = "Database connection could not be made";
+        ErrorMessage errorMessage = new ErrorMessage(errorId, errorCode, message, params);
+        return new ResponseEntity<ErrorMessage>(errorMessage, HttpStatus.BAD_GATEWAY);
+    }
 }

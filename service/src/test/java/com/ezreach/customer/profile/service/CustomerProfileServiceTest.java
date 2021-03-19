@@ -40,7 +40,7 @@ class CustomerProfileServiceTest {
     @MockBean
     private CustomerDao customerDao;
 
-    public Customer returnCustomer(UUID customerId) {
+    public Customer returnCustomer(UUID customerId, UUID userId) {
     	Customer customer = new Customer(
     			customerId,
     			"name",
@@ -50,8 +50,7 @@ class CustomerProfileServiceTest {
     			"email",
     			"mobile",
     			10000,
-    			"gst_details",
-    			UUID.randomUUID());
+				userId);
     	return customer;
     }
     
@@ -62,9 +61,10 @@ class CustomerProfileServiceTest {
 
     @Test
     @DisplayName("Test save customer - success")
-    public void testSave() {
+    public void testSave() throws Exception {
     	UUID customerId = UUID.randomUUID();
-        Customer mockCustomer = returnCustomer(customerId);
+    	UUID userId = UUID.randomUUID();
+        Customer mockCustomer = returnCustomer(customerId, userId);
         
         doReturn(mockCustomer).when(customerDao).save(any());
         Customer returnedCustomer = customerProfileService.saveCustomer(mockCustomer);
@@ -75,27 +75,29 @@ class CustomerProfileServiceTest {
 
     @Test
     @DisplayName("Test find customer - success")
-    public void testFindCustomerSuccess() throws CustomerNotFoundException {
+    public void testFindCustomerSuccess() throws Exception {
     	UUID customerId = UUID.randomUUID();
-        Customer mockCustomer = returnCustomer(customerId);
+		UUID userId = UUID.randomUUID();
+        Customer mockCustomer = returnCustomer(customerId, userId);
     	
-    	doReturn(Optional.of(mockCustomer)).when(customerDao).findById(customerId);
-    	Customer returnedCustomer = customerProfileService.findCustomer(customerId);
+    	doReturn(Optional.of(mockCustomer)).when(customerDao).findByUserId(userId);
+    	Customer returnedCustomer = customerProfileService.findCustomer(userId);
     	
     	assertNotNull(returnedCustomer);
         assertEquals(mockCustomer, returnedCustomer);
     }
 
 	@Test
-	@DisplayName("Test find customer - fail")
-    public void testFindCustomerFail() throws CustomerNotFoundException {
+	@DisplayName("Test find customer - Fail - Customer Not Found")
+    public void testFindCustomerFail() throws Exception {
 		UUID customerId = UUID.randomUUID();
-        Customer mockCustomer = returnCustomer(customerId);
+		UUID userId = UUID.randomUUID();
+        Customer mockCustomer = returnCustomer(customerId, userId);
         
-    	doReturn(Optional.empty()).when(customerDao).findById(customerId);
+    	doReturn(Optional.empty()).when(customerDao).findByUserId(userId);
     	boolean exceptionThrown = false;
     	try {
-    		customerProfileService.findCustomer(customerId);
+    		customerProfileService.findCustomer(userId);
     	} catch(CustomerNotFoundException e) {
     		exceptionThrown = true;
     	}

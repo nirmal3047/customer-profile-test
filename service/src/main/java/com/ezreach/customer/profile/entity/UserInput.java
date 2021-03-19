@@ -7,31 +7,37 @@ import javax.validation.constraints.Size;
 public class UserInput {
 
 	@NotNull
+	private String name;
+
 	@Size(min=15, max=15)
 	private String gstin;
 	
-	@NotNull
 	@Size(min=10, max=10)
 	private String pan;
 	
-	@NotNull
 	@Size(min=12, max=12)
 	private String udyogAadhaar;
 	
-	@NotNull
 	@Min(0)
 	private float turnover;
 	
 	public UserInput() {}
 	
-	public UserInput(String gstin, String pan, String udyogAadhaar, float turnover) {
-		super();
+	public UserInput(@NotNull String name, @NotNull @Size(min=15, max=15) String gstin, @NotNull @Size(min=10, max=10) String pan,
+					 @NotNull @Size(min=12, max=12) String udyogAadhaar, @NotNull @Min(0) float turnover) {
+		this.name = name;
 		this.gstin = gstin;
 		this.pan = pan;
 		this.udyogAadhaar = udyogAadhaar;
 		this.turnover = turnover;
 	}
-	
+
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getGstin() {
 		return gstin;
 	}

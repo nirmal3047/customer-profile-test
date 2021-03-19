@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.ezreach.customer.profile.entity.Customer;
@@ -20,8 +21,8 @@ import java.util.UUID;
 import javax.sql.DataSource;
 
 @ExtendWith(SpringExtension.class)
-@DataJpaTest
 @AutoConfigureEmbeddedDatabase(beanName="dataSource")
+@SpringBootTest
 public class CustomerRepoTest {
 
 	@Autowired
@@ -35,9 +36,9 @@ public class CustomerRepoTest {
     	assertThat(customerDao).isNotNull();
     }
     
-    public Customer returnCustomer(UUID customerId) {
+    public Customer returnCustomer(UUID userId) {
     	Customer customer = new Customer(
-    			customerId,
+				UUID.randomUUID(),
     			"name",
     			"gstin",
     			"pan",
@@ -45,8 +46,7 @@ public class CustomerRepoTest {
     			"email",
     			"mobile",
     			10000,
-    			"gst_details",
-    			UUID.randomUUID());
+				userId);
     	return customer;
     }
     
@@ -62,13 +62,16 @@ public class CustomerRepoTest {
     @Test
     @DisplayName("test find customer - success")
     public void testFindCustomer() {
-    	UUID customerId = UUID.randomUUID();
-    	Customer mockCustomer = returnCustomer(customerId);
+    	UUID userId = UUID.randomUUID();
+    	Customer mockCustomer = returnCustomer(userId);
     	
     	customerDao.save(mockCustomer);
-    	Optional<Customer> returnedCustomer = customerDao.findById(customerId);
+    	Optional<Customer> returnedCustomer = customerDao.findByUserId(userId);
     	assertThat(returnedCustomer.isPresent());
-    	assertEquals(mockCustomer.getCustomerId(), returnedCustomer.get().getCustomerId());
+    	assertEquals(mockCustomer.getUserId(), returnedCustomer.get().getUserId());
+		assertEquals(mockCustomer.getCustomerId(), returnedCustomer.get().getCustomerId());
+		assertEquals(mockCustomer.getCustomerId(), returnedCustomer.get().getCustomerId());
+		assertEquals(mockCustomer.getName(), returnedCustomer.get().getName());
     }
 
 }

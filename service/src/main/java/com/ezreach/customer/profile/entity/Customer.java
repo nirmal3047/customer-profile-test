@@ -16,24 +16,41 @@ public class Customer {
     @Column(name="customer_id")
     @Type(type="pg-uuid")
     private UUID customerId;
+    
     private String name;
+    
     private String gstin;
+    
     private String pan;
+    
     @Column(name="udyog_aadhaar")
     private String udyogAadhaar;
+    
     private String email;
+    
     private String mobile;
+    
     private double turnover;
-    @Column(name="gst_details")
-    private String gstDetails;
+
     @Column(name="user_id")
     private UUID userId;
 
-
     public Customer() {}
 
+    /**
+     *
+     * @param customerId randomly generated uuid at microservice
+     * @param name Customer's name
+     * @param gstin Customer's GST id number
+     * @param pan Customer's PAN
+     * @param udyogAadhaar Customer's Udyog Aadhaar number
+     * @param email Customer's email id
+     * @param mobile Customer's mobile number
+     * @param turnover Customer's annual turnover
+     * @param userId uuid provided by AWS Cognito
+     */
     public Customer(UUID customerId, String name, String gstin, String pan, String udyogAadhaar,
-                    String email, String mobile, double turnover, String gstDetails, UUID userId) {
+                    String email, String mobile, double turnover, UUID userId) {
         this.customerId = customerId;
         this.name = name;
         this.gstin = gstin;
@@ -42,7 +59,6 @@ public class Customer {
         this.email = email;
         this.mobile = mobile;
         this.turnover = turnover;
-        this.gstDetails = gstDetails;
         this.userId = userId;
     }
 
@@ -108,14 +124,6 @@ public class Customer {
 
     public void setTurnover(double turnover) {
         this.turnover = turnover;
-    }
-
-    public String getGstDetails() {
-        return gstDetails;
-    }
-
-    public void setGstDetails(String gstDetails) {
-        this.gstDetails = gstDetails;
     }
 
 	public UUID getUserId() {
