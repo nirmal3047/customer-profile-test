@@ -3,7 +3,8 @@ ADD . /src
 WORKDIR /src
 ARG COMMIT_ID
 ENV COMMIT_ID=$COMMIT_ID
-RUN ./gradlew --no-daemon service:clean service:build service:bootJar  --info
+#RUN ./gradlew --no-daemon service:clean service:build service:bootJar  --info
+RUN ./gradlew --no-daemon service:bootJar  --info
 FROM openjdk:8-jre
 EXPOSE 9290
 #HEALTHCHECK --retries=12 --interval=90s CMD curl -s localhost:9290/health || exit 1
